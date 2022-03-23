@@ -1,0 +1,13 @@
+{% extends "djangomid/base.html" %}
+
+{% block content %}
+
+<h1> {{id}}. {{title}} </h1>
+<p> {{content}} </p>
+<ul> 
+    {% for data in arr_app %} 
+    <li>{{data}}</li>
+    {% endfor %}
+</ul>
+
+{% endblock content %}
