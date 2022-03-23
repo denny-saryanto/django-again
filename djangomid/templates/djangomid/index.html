@@ -1,13 +1,14 @@
 {% extends "djangomid/base.html" %}
 
 {% block content %}
+    <h1>Articles</h1>
 
-<h1> {{id}}. {{title}} </h1>
-<p> {{content}} </p>
-<ul> 
-    {% for data in arr_app %} 
-    <li>{{data}}</li>
-    {% endfor %}
-</ul>
-
+    <ul style="list-style: none;"> 
+        {% for data in arr_app %} 
+        <li>
+            <h2><a href="/article/{{data.id}}">{{ data.title }}</a></h2>
+            <p>{{ data.content }}</p>
+        </li>
+        {% endfor %}
+    </ul>
 {% endblock content %}
