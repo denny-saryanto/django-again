@@ -6,8 +6,8 @@
     <ul style="list-style: none;"> 
         {% for data in arr_app %} 
         <li>
-            <h2><a href="/article/{{data.id}}">{{ data.title }}</a></h2>
-            <p>{{ data.content }}</p>
+            <h2><a href="/articles/{{data.id}}">{{ data.title }}</a></h2>
+            {% comment %} <p>{{ data.content }}</p> {% endcomment %}
         </li>
         {% endfor %}
     </ul>
