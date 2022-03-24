@@ -1,0 +1,19 @@
+{% extends "articles/base.html" %}
+
+{% block content %}
+    <!-- Form Pencarian Judul -->
+    <h1> Search Articles </h1>
+    <form action='' method='GET'>
+        <input type='text' name='query'/>
+        <input type='submit'/>
+    </form>
+    <!-- Form Pencarian Judul Kode Akhir -->
+
+    <!-- Hasil Pencarian -->
+    <h1> Result </h1>
+    {% if result %}
+        <h1> <a href='/articles/{{ result.id }}'>{{ result.title }}</a> </h1>
+        {% comment %} <p> {{ result.content }} </h1> {% endcomment %}
+    {% endif %}
+    <!-- Hasil Pencarian Kode Akhir -->
+{% endblock content %}

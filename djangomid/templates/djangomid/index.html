@@ -2,7 +2,8 @@
 
 {% block content %}
     <h1>Articles</h1>
-
+    <h1><a href="/articles/">Search Articles</a></h1>
+    <!-- List Artikel -->
     <ul style="list-style: none;"> 
         {% for data in arr_app %} 
         <li>
@@ -11,4 +12,5 @@
         </li>
         {% endfor %}
     </ul>
+    <!-- List Artikel Kode Akhir -->
 {% endblock content %}
