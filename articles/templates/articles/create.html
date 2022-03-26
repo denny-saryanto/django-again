@@ -1,19 +1,26 @@
 {% extends "articles/base.html" %}
 
 {% block content %}
-    <h1> Create Article </h1>
-    <div style="margin-top:30px;">
-        <form action="{% url 'createArticle' %}" method='POST'>
-            {% csrf_token %}
-            <div>
-                <input type='text' name='title' placeholder='Judul'/>
-            </div>
-            <div style="margin-top:10px;">
-                <textarea name='content' placeholder='Content'></textarea>
-            </div>
-            <div style="margin-top:10px;">
-                <button type='submit'>Create Article</button>
-            </div>
-        </form>
-    </div>
+    {% if not created %}
+        <h1> Create Article </h1>
+        <div style="margin-top:30px;">
+            <form action="{% url 'createArticle' %}" method='POST'>
+                {% csrf_token %}
+                <div>
+                    <input type='text' name='title' placeholder='Judul'/>
+                </div>
+                <div style="margin-top:10px;">
+                    <textarea name='content' placeholder='Content'></textarea>
+                </div>
+                <div style="margin-top:10px;">
+                    <button type='submit'>Create Article</button>
+                </div>
+            </form>
+        </div>
+    {% else %}
+        <h1> Your Article Was Created </h1>
+        <h2> {{ object.title }} </h2>
+        <p> {{ object.content }} </p>
+        <p><a href="/">Search Article</a>
+    {% endif %}
 {% endblock content %}
