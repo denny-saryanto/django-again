@@ -46,3 +46,10 @@ def searchArticle(request):
                 } 
             }
     return render(request, 'articles/search.html', context=context)
+
+def inputArticle(request):
+    if request.method == "POST":
+        title = request.POST.get('title')
+        content = request.POST.get('content')
+        Article.objects.create(title=title, content=content)
+    return render(request, 'articles/create.html')

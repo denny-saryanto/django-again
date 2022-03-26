@@ -3,7 +3,7 @@
 {% block content %}
     <!-- Form Pencarian Judul -->
     <h1> Search Articles </h1>
-    <form action='/articles/' method='GET'>
+    <form action="{% url 'index' %}" method='GET'>
         <input type='text' name='query'/>
         <input type='submit'/>
     </form>
@@ -14,7 +14,7 @@
     {% if result %}
         <h1>
             {% if result.title != None %}
-            <a href='/articles/{{ result.id }}'>{{ result.title }}</a>
+            <a href="{% url 'showId' result.id %}">{{ result.title }}</a>
             {% else %}
             <a> Not Found </a>
             {% endif %}
