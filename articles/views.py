@@ -40,9 +40,9 @@ def searchArticle(request):
         except Exception as e:
             context = {
                 'result' : {
-                    'id' : "Not Found",
-                    'title' : "Not Found",
-                    'content' : "Not Found",
+                    'id' : None,
+                    'title' : None,
+                    'content' : None,
                 } 
             }
     return render(request, 'articles/search.html', context=context)

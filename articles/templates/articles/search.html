@@ -12,8 +12,13 @@
     <!-- Hasil Pencarian -->
     <h1> Result </h1>
     {% if result %}
-        <h1> <a href='/articles/{{ result.id }}'>{{ result.title }}</a> </h1>
-        {% comment %} <p> {{ result.content }} </h1> {% endcomment %}
+        <h1>
+            {% if result.title != None %}
+            <a href='/articles/{{ result.id }}'>{{ result.title }}</a>
+            {% else %}
+            <a> Not Found </a>
+            {% endif %}
+        </h1>
     {% endif %}
     <!-- Hasil Pencarian Kode Akhir -->
 {% endblock content %}
