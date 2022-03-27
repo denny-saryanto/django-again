@@ -1,5 +1,6 @@
 from django.shortcuts import render, reverse
 from django.http import HttpResponse, HttpResponseRedirect
+
 from .models import Article
 from djangomid import views as viewsDjangomid
 
