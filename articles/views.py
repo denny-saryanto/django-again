@@ -1,5 +1,6 @@
 from django.shortcuts import render, reverse
 from django.http import HttpResponse, HttpResponseRedirect
+from django.contrib.auth.decorators import login_required
 
 from .models import Article
 from djangomid import views as viewsDjangomid
@@ -48,6 +49,7 @@ def searchArticle(request):
             }
     return render(request, 'articles/search.html', context=context)
 
+@login_required
 def inputArticle(request):
     context = {}
     if request.method == "POST":
