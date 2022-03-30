@@ -3,6 +3,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 
 from .models import Article
+from .forms import ArticleForm
 from djangomid import views as viewsDjangomid
 
 # Create your views here.
@@ -51,11 +52,28 @@ def searchArticle(request):
 
 @login_required
 def inputArticle(request):
-    context = {}
+    form = ArticleForm()
+    context = {
+        "form" : form
+    }
+    # Form Manual Handle
+
+    # if request.method == "POST":
+    #     title = request.POST.get('title')
+    #     content = request.POST.get('content')
+    #     article_object = Article.objects.create(title=title, content=content)
+    #     context['object'] = article_object
+    #     context['created'] = True
+
+    # Django Form Handle 
+
     if request.method == "POST":
-        title = request.POST.get('title')
-        content = request.POST.get('content')
-        article_object = Article.objects.create(title=title, content=content)
-        context['object'] = article_object
-        context['created'] = True 
+        form = ArticleForm(request.POST or None)
+        context['form'] = form
+        if form.is_valid():
+            title = form.cleaned_data.get('title')
+            content = form.cleaned_data.get('content')
+            article_object = Article.objects.create(title=title, content=content)
+            context['object'] = article_object
+            context['created'] = True
     return render(request, 'articles/create.html', context=context)

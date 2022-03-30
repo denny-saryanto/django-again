@@ -6,12 +6,17 @@
         <div style="margin-top:30px;">
             <form action="{% url 'createArticle' %}" method='POST'>
                 {% csrf_token %}
-                <div>
+                <!-- Form Tanpa Django Form -->
+                {% comment %} <div>
                     <input type='text' name='title' placeholder='Judul'/>
                 </div>
                 <div style="margin-top:10px;">
                     <textarea name='content' placeholder='Content'></textarea>
-                </div>
+                </div> {% endcomment %}
+                <!-- Kode Akhir Form Tanpa Django Form -->
+                <!-- Form dengan Django Form -->
+                {{ form.as_p }}
+                <!-- Kode Akhir Django Form -->
                 <div style="margin-top:10px;">
                     <button type='submit'>Create Article</button>
                 </div>
