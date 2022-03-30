@@ -1,6 +1,7 @@
 from django.shortcuts import render, reverse, redirect
 from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.forms import UserCreationForm
 
 from djangomid import views as viewsDjangomid
 
@@ -30,4 +31,11 @@ def logout_render(request):
     return render(request, "accounts/logout-accounts.html", context={})
 
 def register_render(request):
-    return render(request, "accounts/register.html", context={})
+    form = UserCreationForm(request.POST or None)
+    if form.is_valid():
+        user_obj = form.save()
+        return redirect('login')
+    context = {
+        "form" : form,
+    }
+    return render(request, "accounts/register-accounts.html", context=context)

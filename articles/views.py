@@ -52,7 +52,7 @@ def searchArticle(request):
 
 @login_required
 def inputArticle(request):
-    form = ArticleForm()
+    form = ArticleForm(request.POST or None)
     context = {
         "form" : form
     }
@@ -66,14 +66,13 @@ def inputArticle(request):
     #     context['created'] = True
 
     # Django Form Handle 
-
-    if request.method == "POST":
-        form = ArticleForm(request.POST or None)
-        context['form'] = form
-        if form.is_valid():
-            title = form.cleaned_data.get('title')
-            content = form.cleaned_data.get('content')
-            article_object = Article.objects.create(title=title, content=content)
-            context['object'] = article_object
-            context['created'] = True
+    if form.is_valid():
+        article_object = form.save()
+        context['form'] = ArticleForm(request.POST or None)
+        # Tanpa Django Form
+        # title = form.cleaned_data.get('title')
+        # content = form.cleaned_data.get('content')
+        # article_object = Article.objects.create(title=title, content=content)
+        context['object'] = article_object
+        context['created'] = True
     return render(request, 'articles/create.html', context=context)
