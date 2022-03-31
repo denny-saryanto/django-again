@@ -8,14 +8,15 @@
                 {% if error %}
                     <p style="color:red">{{ error }}</p>
                 {% endif %}
-                <div style="margin-top:10px;">
+                {% comment %} <div style="margin-top:10px;">
                     <label>Username</label>
                     <input type="text" name="username" placeholder="Username"/>
                 </div>
                 <div style="margin-top:10px;">
                     <label>Password</label>
                     <input type="password" name="password" placeholder="Password"/>
-                </div>
+                </div> {% endcomment %}
+                {{ form.as_p }}
                 <div style="margin-top:10px;">
                     <button type="submit">Login</button>
                 </div>
