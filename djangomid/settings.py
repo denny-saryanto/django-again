@@ -21,7 +21,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-vmk(=)3j40)wa#hw2c(ep$@8103qco9uw#z1h8)+@jka6&a16+')
+SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY')
+
+# Run on terminal to get Random Secret Key using this command
+# python -c 'from django.core.management.utils import get_random_secret_key; print(get_random_secret_key())'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = str(os.environ.get('DEBUG')) == "1" # 1 = True
@@ -32,7 +35,7 @@ ALLOWED_HOSTS = [
 ]
 
 if not DEBUG:
-    ALLOWED_HOSTS += [os.environ.get('ALLOWED_HOSTS')]
+    ALLOWED_HOSTS += [os.environ.get('DJANGO_ALLOWED_HOSTS')]
 
 
 # Application definition
@@ -92,6 +95,32 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+
+POSTGRES_DB = os.environ.get("POSTGRES_DB")
+POSTGRES_PASSWORD = os.environ.get("POSTGRES_PASSWORD")
+POSTGRES_USER = os.environ.get("POSTGRES_USER")
+POSTGRES_HOST = os.environ.get("POSTGRES_HOST")
+POSTGRES_PORT = os.environ.get("POSTGRES_PORT")
+
+POSTGRES_READY = (
+    POSTGRES_DB is not None
+    and POSTGRES_PASSWORD is not None
+    and POSTGRES_USER is not None
+    and POSTGRES_HOST is not None
+    and POSTGRES_PORT is not None
+)
+
+if POSTGRES_READY:
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.postgresql",
+            "NAME": POSTGRES_DB,
+            "USER": POSTGRES_USER,
+            "PASSWORD": POSTGRES_PASSWORD,
+            "HOST": POSTGRES_HOST,
+            "PORT": POSTGRES_PORT,
+        }
+    }
 
 
 # Password validation
