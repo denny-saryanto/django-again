@@ -16,6 +16,9 @@ class Article(models.Model):
     updated = models.DateTimeField(auto_now=True)
     publish = models.DateField(auto_now_add=False, auto_now=False, null=True, blank=True)
 
+    def get_absolute_url(self):
+        return "/articles/{}/".format(self.slug)
+
     def save(self, *args, **kwargs):
         # obj = Article.objets.get(id=1)
         # set something
