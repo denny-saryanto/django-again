@@ -14,18 +14,14 @@ def index(request):
 def showId(request, slug=None):
     try:
         article_slug = Article.objects.get(slug=slug)
-        try:
-            article_slug = Article.objects.get(slug=slug)
-        except Article.DoesNotExist:
-            raise Http404("Article does not exist")
-        except Article.MultipleObjectsReturned:
-            article_slug = Article.objects.filter(slug=slug).order_by('id').first()
-        except:
-            raise Http404("Article does not exist")
         context = {
             'article' : article_slug,
         }
         return render(request, "articles/index.html", context=context)
+    except Article.DoesNotExist:
+        raise Http404("Article does not exist")
+    except Article.MultipleObjectsReturned:
+        article_slug = Article.objects.filter(slug=slug).order_by('id').first()
     except Exception:
         return HttpResponseRedirect(reverse(viewsDjangomid.index))
 
