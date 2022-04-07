@@ -1,6 +1,7 @@
 from django.shortcuts import render, reverse
 from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
+from django.db.models import Q
 
 from .models import Article
 from .forms import ArticleForm
@@ -26,33 +27,24 @@ def showId(request, slug=None):
         return HttpResponseRedirect(reverse(viewsDjangomid.index))
 
 def searchArticle(request):
-    query = request.GET
-    query_data = query.get('query')
+    query_data = request.GET.get('query')
+    context = None
 
-    try:
-        query_data = int(query_data)
-    except:
-        query_data = None
-
-    article, context = None, None
     if query_data is not None:
         try:
-            article = Article.objects.get(id=query_data)
+            lookups = Q(title__icontains=query_data) | Q(content__icontains=query_data)
+            article = Article.objects.filter(lookups)
             context = {
-                'result' : {
-                    'id' : article.id,
-                    'title' : article.title,
-                    'content' : article.content,
-                } 
+                'result' : article,
             }
         except Exception as e:
             context = {
-                'result' : {
-                    'id' : None,
-                    'title' : None,
-                    'content' : None,
-                } 
+                'result' : None
             }
+    else:
+        context = {
+            'result' : None
+        }
     return render(request, 'articles/search.html', context=context)
 
 @login_required

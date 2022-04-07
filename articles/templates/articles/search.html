@@ -12,13 +12,15 @@
     <!-- Hasil Pencarian -->
     <h1> Result </h1>
     {% if result %}
-        <h1>
-            {% if result.title != None %}
-            <a href="{% url 'showId' result.id %}">{{ result.title }}</a>
-            {% else %}
-            <a> Not Found </a>
-            {% endif %}
-        </h1>
+        {% for data in result %}
+            <h1>
+                {% if data.title != None %}
+                    <a href="{% url 'showId' slug=data.slug %}">{{ data.title }}</a>
+                {% else %}
+                    <a> Not Found </a>
+                {% endif %}
+            </h1>
+        {% endfor %}
     {% endif %}
     <!-- Hasil Pencarian Kode Akhir -->
 {% endblock content %}
